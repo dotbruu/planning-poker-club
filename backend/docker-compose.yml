@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+  propbox-postgres:
+    container_name: planning-poker
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: s5f98d2eg1t8b53d6gc91fd4g7
+      POSTGRES_DB: planning-poker
+      POSTGRES_PASSWORD: b8b2c468625df4g8b2ebb7dd49521395
+    ports:
+      - "5423:5432"
+    volumes:
+      - ./data/data:/var/lib/postgresql/data
