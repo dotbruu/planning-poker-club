@@ -1,0 +1,150 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": [
+    "next",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "eslint-plugin-import-helpers",
+    "prettier"
+  ],
+  "rules": {
+    "react/no-unused-state": "error",
+    "react/no-array-index-key": "error",
+    "react-hooks/rules-of-hooks": "off",
+    "react/prefer-read-only-props": "error",
+    "react/jsx-props-no-spreading": "off",
+    "react-hooks/exhaustive-deps": "off",
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/boolean-prop-naming": [
+      "warn",
+      {
+        "rule": "^(is|has|should|can)[A-Z]([A-Za-z0-9]?)+"
+      }
+    ],
+    "react/destructuring-assignment": "warn",
+    "react/prop-types": "off",
+    "react/jsx-pascal-case": "error",
+    "react/jsx-no-leaked-render": "error",
+    "react/require-default-props": "off",
+    "react/jsx-no-constructed-context-values": "warn",
+    "react/jsx-sort-props": [
+      "warn",
+      {
+        "callbacksLast": true,
+        "shorthandFirst": true,
+        "shorthandLast": false,
+        "multiline": "last",
+        "ignoreCase": true,
+        "reservedFirst": true
+      }
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".jsx",
+          ".tsx"
+        ]
+      }
+    ],
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "interface",
+        "format": [
+          "PascalCase"
+        ],
+        "custom": {
+          "regex": "^I[A-Z]",
+          "match": true
+        }
+      }
+    ],
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "camelcase": "off",
+    "import/no-unresolved": "off",
+    "import-helpers/order-imports": [
+      "warn",
+      {
+        "newlinesBetween": "always",
+        "groups": [
+          "module",
+          "/^@shared/",
+          [
+            "parent",
+            "sibling",
+            "index"
+          ]
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "ignoreCase": true
+        }
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.spec.js"
+        ]
+      }
+    ],
+    "import/prefer-default-export": "off",
+    "class-methods-use-this": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "no-explicit-any": "off",
+    "no-shadow": "off",
+    "no-console": "error",
+    "no-useless-constructor": "off",
+    "lines-between-class-members": "off",
+    "prettier/prettier": "error",
+    "linebreak-style": 0,
+    "max-len": [
+      "error",
+      {
+        "code": 120,
+        "ignoreComments": true,
+        "ignoreUrls": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true
+      }
+    ],
+    "react/button-has-type": "off",
+    "@typescript-eslint/no-empty-function": "off",
+  },
+  "settings": {
+    "import/core-modules": [
+      "dayjs"
+    ],
+    "import/resolver": {
+      "typescript": {}
+    }
+  }
+}
