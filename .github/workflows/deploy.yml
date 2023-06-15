@@ -20,4 +20,4 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          ssh ${{ secrets.SSH_HOST }} './deploy.sh'
+          ssh ${{ secrets.SSH_HOST }} 'sh ./deploy.sh'
