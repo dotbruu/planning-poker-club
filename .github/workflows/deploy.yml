@@ -1,23 +1,19 @@
-name: Deploy
+name: BackendCI
 
 on:
   push:
-    branches:
-      - main
-
+    branches: [ "main" ]
+    
 jobs:
   deploy:
+    name: Deploy
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Configure SSH
-        uses: webfactory/ssh-agent@v0.5.1
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy to VPS
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_HOST }} 'sh /path/to/deploy.sh'
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          script: sh deploy.sh
