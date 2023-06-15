@@ -20,4 +20,4 @@ jobs:
 
       - name: Deploy to VPS
         run: |
-          ssh ${{ secrets.SSH_HOST }} 'sh ./deploy.sh'
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_HOST }} 'sh /path/to/deploy.sh'
