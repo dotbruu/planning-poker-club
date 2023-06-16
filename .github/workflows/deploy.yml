@@ -6,7 +6,7 @@ on:
     
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy Server
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
@@ -15,6 +15,5 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: sh deploy.sh
