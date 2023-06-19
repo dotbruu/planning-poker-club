@@ -17,10 +17,4 @@ jobs:
             HOSTNAME : ${{ secrets.SSH_HOST  }}
             USER_NAME : ${{ secrets.SSH_USER  }}
             
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${SSH_USER}@${SSH_HOST} '
-          
-            #Now we have got the access of EC2 and we will start the deploy .
-            sh deploy.sh
-          '
+        run: sh deploy.sh
