@@ -1,20 +1,26 @@
-name: BackendCI
+name: SSH into EC2 Instance
 
 on:
   push:
-    branches: [ "main" ]
-    
+    branches:
+      - main
+
 jobs:
   deploy:
-    name: Deploy Server
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2 
-      - name: Deploy in EC2
-        env:
-            PRIVATE_KEY: ${{ secrets.PRIVATE_KEY  }}
-            HOSTNAME : ${{ secrets.SSH_HOST  }}
-            USER_NAME : ${{ secrets.SSH_USER  }}
-            
-        run: sh deploy.sh
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: SSH into EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.PRIVATE_KEY }}
+
+      - name: Execute commands on EC2
+        run: |
+          # Run any commands you want on the EC2 instance
+          sh deploy.sh
