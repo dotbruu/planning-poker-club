@@ -21,9 +21,9 @@
     "db:generate": "npx prisma generate"
   },
   "dependencies": {
-    "@nestjs/common": "^9.0.0",
-    "@nestjs/core": "^9.0.0",
-    "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/common": "^9.4.2",
+    "@nestjs/core": "^9.4.2",
+    "@nestjs/platform-express": "^9.4.2",
     "@nestjs/platform-socket.io": "^9.4.0",
     "@nestjs/websockets": "^9.4.0",
     "@prisma/client": "^4.14.1",
