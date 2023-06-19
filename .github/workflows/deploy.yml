@@ -16,7 +16,7 @@ jobs:
       - name: Start SSH agent
         uses: webfactory/ssh-agent@v0.5.0
         with:
-          ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: SSH into EC2
         uses: appleboy/ssh-action@master
