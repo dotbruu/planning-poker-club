@@ -6,13 +6,16 @@ import { Text } from "@/components/atoms/text";
 import { voteDecks } from "@/constants/vote-decks";
 import {
   CreateRoomFormData,
-  CreateRoomModalProps,
+  ICreateRoomModalProps,
 } from "@/interfaces/components/organisms/create-room-modal.struct";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 
-export function CreateRoomModal({ onConfirm, ...props }: CreateRoomModalProps) {
+export function CreateRoomModal({
+  onConfirm,
+  ...props
+}: ICreateRoomModalProps) {
   const {
     register,
     handleSubmit,

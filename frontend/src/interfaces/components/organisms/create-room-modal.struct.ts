@@ -1,4 +1,4 @@
-export interface CreateRoomModalProps {
+export interface ICreateRoomModalProps {
   isOpen: boolean;
   onClose?: () => void;
   onConfirm: (data: CreateRoomFormData) => void;

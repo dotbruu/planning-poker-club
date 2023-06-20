@@ -1,6 +1,6 @@
 import { UseFormRegisterReturn } from "react-hook-form";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface IInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: string;
   register?: UseFormRegisterReturn;
@@ -10,10 +10,9 @@ export function Input({
   label,
   error,
   className,
-  name,
   register,
   ...props
-}: InputProps) {
+}: IInputProps) {
   return (
     <div className="mt-2 w-full">
       {label ? <label className="text-sm text-gray-500">{label}</label> : null}

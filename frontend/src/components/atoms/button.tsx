@@ -1,4 +1,4 @@
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   leftElement?: React.ReactNode;
   variant?: "primary" | "secondary";
   text: string;
@@ -13,7 +13,7 @@ export function Button({
   selected,
   isSubmitting,
   ...props
-}: ButtonProps) {
+}: IButtonProps) {
   return (
     <>
       {variant === "primary" && (

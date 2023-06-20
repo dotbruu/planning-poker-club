@@ -1,9 +1,9 @@
-interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
+interface ITextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   text: string;
   as?: "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
-export function Text({ as, text, ...props }: TextProps) {
+export function Text({ as, text, ...props }: ITextProps) {
   return (
     <>
       {as === "h1" && <h1 {...props}>{text}</h1>}
