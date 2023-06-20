@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-
-  deploy:
+  deploy-backend:
+    name: Deploy Frontend
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,29 @@ jobs:
       - name: SSH into EC2
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_HOST }}
+          host: ${{ secrets.SSH_HOST_FRONTEND }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: sh deploy.sh
+
+  deploy-backend:
+    name: Deploy Backend
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Start SSH agent
+        uses: webfactory/ssh-agent@v0.5.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: SSH into EC2
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST_BACKEND }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
