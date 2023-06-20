@@ -1,8 +1,8 @@
-interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
+interface IFlexProps extends React.HTMLAttributes<HTMLDivElement> {
   type: "row" | "column";
 }
 
-export function Flex(props: FlexProps) {
+export function Flex(props: IFlexProps) {
   const { children, type, className, ...rest } = props;
 
   return (

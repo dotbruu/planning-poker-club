@@ -1,4 +1,4 @@
-export interface CreateUserModalProps {
+export interface ICreateUserModalProps {
   isOpen: boolean;
   onClose?: () => void;
   onConfirm: (data: CreateUserFormData) => void;

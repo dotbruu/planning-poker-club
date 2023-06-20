@@ -4,7 +4,7 @@ import { Modal } from "@/components/atoms/modal";
 import { Text } from "@/components/atoms/text";
 import { ReloadIcon } from "@/components/icons/reload-icon";
 import {
-  CreateUserModalProps,
+  ICreateUserModalProps,
   CreateUserFormData,
 } from "@/interfaces/components/organisms/create-user-modal.struct";
 import { generateEmoji } from "@/utils/generate-emoji";
@@ -13,7 +13,10 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 
-export function CreateUserModal({ onConfirm, ...props }: CreateUserModalProps) {
+export function CreateUserModal({
+  onConfirm,
+  ...props
+}: ICreateUserModalProps) {
   const [avatar, setAvatar] = useState("");
   const {
     register,

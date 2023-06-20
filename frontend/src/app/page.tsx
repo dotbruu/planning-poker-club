@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import { LogoIcon } from "@/components/icons/logo-icon";

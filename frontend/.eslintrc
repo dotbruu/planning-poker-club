@@ -126,16 +126,6 @@
     "lines-between-class-members": "off",
     "prettier/prettier": "error",
     "linebreak-style": 0,
-    "max-len": [
-      "error",
-      {
-        "code": 120,
-        "ignoreComments": true,
-        "ignoreUrls": true,
-        "ignoreTemplateLiterals": true,
-        "ignoreRegExpLiterals": true
-      }
-    ],
     "react/button-has-type": "off",
     "@typescript-eslint/no-empty-function": "off",
   },

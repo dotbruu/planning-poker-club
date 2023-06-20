@@ -1,11 +1,11 @@
 "use client";
-interface ModalProps {
+interface IModalProps {
   children: React.ReactNode;
   isOpen: boolean;
   onClose?: () => void;
 }
 
-export function Modal({ isOpen, onClose, children }: ModalProps) {
+export function Modal({ isOpen, onClose, children }: IModalProps) {
   return (
     <div
       className={`w-full h-full absolute bg-primary bg-opacity-70 flex
