@@ -1,15 +1,22 @@
-version: '3.1'
+version: '3.3'
 
 services:
-  propbox-postgres:
-    container_name: planning-poker
-    image: postgres
+
+  planning-mongo:
+    image: mongo
     restart: always
-    environment:
-      POSTGRES_USER: s5f98d2eg1t8b53d6gc91fd4g7
-      POSTGRES_DB: planning-poker
-      POSTGRES_PASSWORD: b8b2c468625df4g8b2ebb7dd49521395
     ports:
-      - "5423:5432"
-    volumes:
-      - ./data/data:/var/lib/postgresql/data
+      - 27019:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  planning-mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27019/
