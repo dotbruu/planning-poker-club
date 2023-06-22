@@ -1,22 +1,12 @@
 version: '3.3'
 
 services:
-
   planning-mongo:
-    image: mongo
-    restart: always
-    ports:
-      - 27019:27017
+    container_name: planning-mongo
+    image: prismagraphql/mongo-single-replica:4.4.3-bionic
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-
-  planning-mongo-express:
-    image: mongo-express
-    restart: always
+      MONGO_INITDB_ROOT_USERNAME: aToCPaEMc31
+      MONGO_INITDB_ROOT_PASSWORD: 1DDA67B1974990B57E54EAF7407896F3
+      INIT_WAIT_SEC: 3
     ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27019/
+      - 27017:27017
