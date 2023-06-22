@@ -58,7 +58,7 @@ export class RoomController {
     }
 
     this.socketMessageService.server.emit(
-      `room/${room.getValue().id}`,
+      `room/${params.roomId}`,
       JSON.stringify({
         type: 'associate_user_in_room',
         ...room.getValue(),
