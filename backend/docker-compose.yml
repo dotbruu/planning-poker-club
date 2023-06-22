@@ -1,15 +1,12 @@
-version: '3.1'
+version: '3.3'
 
 services:
-  propbox-postgres:
-    container_name: planning-poker
-    image: postgres
-    restart: always
+  planning-mongo:
+    container_name: planning-mongo
+    image: prismagraphql/mongo-single-replica:4.4.3-bionic
     environment:
-      POSTGRES_USER: s5f98d2eg1t8b53d6gc91fd4g7
-      POSTGRES_DB: planning-poker
-      POSTGRES_PASSWORD: b8b2c468625df4g8b2ebb7dd49521395
+      MONGO_INITDB_ROOT_USERNAME: aToCPaEMc31
+      MONGO_INITDB_ROOT_PASSWORD: 1DDA67B1974990B57E54EAF7407896F3
+      INIT_WAIT_SEC: 3
     ports:
-      - "5423:5432"
-    volumes:
-      - ./data/data:/var/lib/postgresql/data
+      - 27017:27017
