@@ -9,7 +9,7 @@ import {
 } from "@/interfaces/components/organisms/create-user-modal.struct";
 import { generateEmoji } from "@/utils/generate-emoji";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 
@@ -17,7 +17,7 @@ export function CreateUserModal({
   onConfirm,
   ...props
 }: ICreateUserModalProps) {
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(() => generateEmoji());
   const {
     register,
     handleSubmit,
@@ -31,14 +31,9 @@ export function CreateUserModal({
     resolver: yupResolver(
       Yup.object().shape({
         userName: Yup.string().required("User name is required"),
-        avatar: Yup.string().required("Avatar is required"),
       })
     ),
   });
-
-  useEffect(() => {
-    setAvatar(generateEmoji());
-  }, []);
 
   function handleAvatarChange() {
     const newAvatar = generateEmoji();
@@ -50,7 +45,7 @@ export function CreateUserModal({
       <Text className="font-bold text-xl mb-6" text="Create user" />
       <form
         onSubmit={handleSubmit((data) => {
-          onConfirm(data);
+          onConfirm({ ...data, avatar });
         })}
       >
         <div className="flex flex-col gap-4">
