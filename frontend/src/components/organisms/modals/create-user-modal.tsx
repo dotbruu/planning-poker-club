@@ -17,6 +17,7 @@ export function CreateUserModal({
   onConfirm,
   ...props
 }: ICreateUserModalProps) {
+  const generatedEmoji = generateEmoji();
   const [avatar, setAvatar] = useState("");
   const {
     register,
@@ -26,18 +27,18 @@ export function CreateUserModal({
   } = useForm<CreateUserFormData>({
     defaultValues: {
       userName: "",
-      avatar,
+      avatar: generatedEmoji,
     },
     resolver: yupResolver(
       Yup.object().shape({
         userName: Yup.string().required("User name is required"),
-        avatar: Yup.string().required("Avatar is required"),
       })
     ),
   });
 
   useEffect(() => {
-    setAvatar(generateEmoji());
+    setAvatar(generatedEmoji);
+    setValue("avatar", generatedEmoji);
   }, []);
 
   function handleAvatarChange() {
@@ -50,7 +51,7 @@ export function CreateUserModal({
       <Text className="font-bold text-xl mb-6" text="Create user" />
       <form
         onSubmit={handleSubmit((data) => {
-          onConfirm(data);
+          onConfirm({ ...data });
         })}
       >
         <div className="flex flex-col gap-4">

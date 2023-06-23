@@ -45,7 +45,7 @@ export class ShowResultVotingService implements IShowResultVotingService {
     }
 
     return Result.ok({
-      average: String(average),
+      average: average.toFixed(1),
       votes: roomUpdated.votes,
     });
   }
