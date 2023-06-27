@@ -1,7 +1,7 @@
 # Planning Poker Club 💙
 
 ![Cover](https://i.ibb.co/k28b38M/Scrum-Poker-for-agile-development-teams.png)
-
+[Visit the project website](http://planningpokerclub.com)
 ## Description 🗒
 Planning Poker Club is an open-source web application that allows for conducting Planning Poker sessions to estimate task effort in agile teams. The application uses TypeScript with Next.js on the frontend and NestJS on the backend, along with MongoDB as the database.
 
