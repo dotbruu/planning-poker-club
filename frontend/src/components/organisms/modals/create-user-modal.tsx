@@ -63,6 +63,7 @@ export function CreateUserModal({
               {avatar}
             </div>
             <button
+              type="button"
               className="w-[42px] h-[42px] rounded-full bg-white
               p-2 absolute mb-[-20px] ml-10"
               onClick={() => handleAvatarChange()}

@@ -51,8 +51,8 @@ export default function Home() {
         <div className="w-full flex content-center justify-center mx-auto">
           <img
             src="/scrum.png"
-            className="fixed bottom-[-20%] md:relative
-            md:bottom-auto max-w-[180%] md:w-full z-10"
+            className="fixed bottom-[-15%] md:relative
+            max-w-[180%] md:w-full z-10"
           />
         </div>
       </div>
