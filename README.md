@@ -10,15 +10,15 @@ Planning Poker Club was created with the goal of facilitating planning and estim
 ## Next Steps 📝
 Here are some of the planned next steps for the development of Planning Poker Club:
 
-- [] Include Time Counter: Add a time counter to control the discussion and estimation time for tasks during Planning Poker sessions.
+- [ ] Include Time Counter: Add a time counter to control the discussion and estimation time for tasks during Planning Poker sessions.
 
-- [] Remove User from Room Option: Allow the session facilitator to remove a user from the room if necessary.
+- [ ] Remove User from Room Option: Allow the session facilitator to remove a user from the room if necessary.
 
-- [] User Settings: Implement functionality that allows users to change their names and other personalized settings.
+- [ ] User Settings: Implement functionality that allows users to change their names and other personalized settings.
 
-- [] Enhanced Emoji Selection with Listing: Improve the emoji selection in the user interface by providing a list of emojis to facilitate the choice during the estimation process.
+- [ ] Enhanced Emoji Selection with Listing: Improve the emoji selection in the user interface by providing a list of emojis to facilitate the choice during the estimation process.
 
-- [] Unit and Integration Testing: Include unit and integration tests to ensure the quality and robustness of the code. This will help identify and address potential issues or regressions as new features are added.
+- [ ] Unit and Integration Testing: Include unit and integration tests to ensure the quality and robustness of the code. This will help identify and address potential issues or regressions as new features are added.
 
 ## Running Locally 💻
 To run Planning Poker Club locally, follow the steps below:

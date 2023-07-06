@@ -26,7 +26,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: sh deploy.sh
+          script: |
+            cd planning
+            sh front-deploy.sh
 
   deploy-backend:
     name: Deploy Backend
@@ -48,4 +50,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: sh deploy.sh
+          script: |
+            cd planning
+            sh backend-deploy.sh
