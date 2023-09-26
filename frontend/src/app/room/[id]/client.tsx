@@ -78,7 +78,7 @@ export function RoomPage({ room, userData }: IRoomPageProps) {
         </div>
         <div
           className="flex flex-col content-between justify-between w-full px-12
-        overflow-hidden md:w-[520px] md:h-[92vh] md:bg-primary"
+        overflow-hidden md:w-[520px] md:h-[100vh] md:bg-primary"
         >
           <div className="w-full">
             <div
@@ -86,7 +86,7 @@ export function RoomPage({ room, userData }: IRoomPageProps) {
                 average
                   ? "absolute top-14 md:top-auto md:relative flex"
                   : "hidden"
-              } w-[520px] h-[520px]
+              } w-[520px] h-[0px]
           aspect-square bg-secondary rounded-full flex-col justify-center
           content-center items-center mt-[8rem]`}
             >
