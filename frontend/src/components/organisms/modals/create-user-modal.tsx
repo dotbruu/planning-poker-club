@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { Button } from "@/components/atoms/button";
 import { Input } from "@/components/atoms/input";
 import { Modal } from "@/components/atoms/modal";
@@ -9,7 +10,8 @@ import {
 } from "@/interfaces/components/organisms/create-user-modal.struct";
 import { generateEmoji } from "@/utils/generate-emoji";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
+import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 
@@ -18,7 +20,8 @@ export function CreateUserModal({
   ...props
 }: ICreateUserModalProps) {
   const generatedEmoji = generateEmoji();
-  const [avatar, setAvatar] = useState("");
+  const [avatar, setAvatar] = useState(generatedEmoji);
+  const [emojiPicker, setEmojiPicker] = useState(false);
   const {
     register,
     handleSubmit,
@@ -36,15 +39,14 @@ export function CreateUserModal({
     ),
   });
 
-  useEffect(() => {
-    setAvatar(generatedEmoji);
-    setValue("avatar", generatedEmoji);
-  }, []);
+  function handleAvatarChange(emoji: string) {
+    setAvatar(emoji);
+    setValue("avatar", emoji);
+    handleEmojiPicker();
+  }
 
-  function handleAvatarChange() {
-    const newAvatar = generateEmoji();
-    setAvatar(newAvatar);
-    setValue("avatar", newAvatar);
+  function handleEmojiPicker() {
+    setEmojiPicker(!emojiPicker);
   }
   return (
     <Modal {...props}>
@@ -65,11 +67,25 @@ export function CreateUserModal({
             <button
               type="button"
               className="w-[42px] h-[42px] rounded-full bg-white
-              p-2 absolute mb-[-20px] ml-10"
-              onClick={() => handleAvatarChange()}
+              p-2 absolute mb-[-20px] ml-10 z-50"
+              onClick={() => handleEmojiPicker()}
             >
               <ReloadIcon />
             </button>
+          </div>
+          <div
+            className={`w-full absolute ml-24 z-40 ${
+              emojiPicker ? "block" : "hidden"
+            }`}
+            onMouseLeave={() => setEmojiPicker(false)}
+          >
+            <EmojiPicker
+              lazyLoadEmojis
+              searchDisabled
+              autoFocusSearch={false}
+              emojiStyle={EmojiStyle.NATIVE}
+              onEmojiClick={(emoji) => handleAvatarChange(emoji.emoji)}
+            />
           </div>
           <Input
             error={errors.userName?.message}
