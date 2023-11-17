@@ -27,8 +27,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd planning
-            sh front-deploy.sh
+            sh ftplanpc.sh
 
   deploy-backend:
     name: Deploy Backend
@@ -51,5 +50,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            cd planning
-            sh backend-deploy.sh
+            sh bkplanpc.sh
