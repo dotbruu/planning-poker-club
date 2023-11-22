@@ -20,11 +20,7 @@ export class RoomService {
 
   // get data from room
   static async getRoom(roomId: string) {
-    try {
-      const response = await api.get(`/room/${roomId}`);
-      return response.data;
-    } catch (e) {
-      return null;
-    }
+    const response = await api.get(`/room/${roomId}`);
+    return response.data;
   }
 }
