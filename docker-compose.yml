@@ -3,7 +3,7 @@ services:
   backend:
     image: node:18.13.0
     working_dir: /app/backend
-    command: sh -c "npm install -g && npm install && npm run db:generate && npm run build && npm run start:prod"
+    command: sh -c "npm run start:prod"
     ports:
       - "3300:3300"
     env_file:
@@ -16,7 +16,7 @@ services:
   frontend:
     image: node:18.13.0
     working_dir: /app/frontend
-    command: sh -c "npm install && npm run build && npm start"
+    command: sh -c "npm start"
     ports:
       - "3301:3000"
     env_file:
@@ -25,7 +25,6 @@ services:
       - ./frontend:/app/frontend
     networks:
       - my-network
-      
 networks:
   my-network:
     driver: bridge
