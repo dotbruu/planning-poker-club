@@ -1,30 +1,27 @@
 version: '3'
 services:
   backend:
-    image: node:18.13.0
-    working_dir: /app/backend
-    command: sh -c "npm install && npm run db:generate && npm run build && npm run start:prod"
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     ports:
-      - "3300:3300"
+      - "7050:7050"
     env_file:
       - ./backend/.env
-    volumes:
-      - ./backend:/app/backend
     networks:
-      - my-network
+      - poker
 
   frontend:
-    image: node:18.13.0
-    working_dir: /app/frontend
-    command: sh -c "npm install && npm run build && npm start"
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
     ports:
-      - "3301:3000"
+      - "7051:7051"
     env_file:
       - ./frontend/.env
-    volumes:
-      - ./frontend:/app/frontend
     networks:
-      - my-network
+      - poker
+
 networks:
-  my-network:
+  poker:
     driver: bridge
