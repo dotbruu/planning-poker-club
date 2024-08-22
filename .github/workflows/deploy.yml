@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          path: /www/wwwroot/planningpokerclub
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -29,37 +27,42 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-docker-
 
-      - name: Build Docker images
+      - name: Log in to Docker Registry
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.DOCKER_REGISTRY_URL }} -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build and Push Backend Docker Image
         run: |
           cd /www/wwwroot/planningpokerclub
-          docker build -t planningpokerclub-backend:latest -f backend/Dockerfile .
-          docker build -t planningpokerclub-frontend:latest -f frontend/Dockerfile .
+          docker build -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-backend:latest -f backend/Dockerfile .
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-backend:latest
 
-      - name: Run backend and frontend containers
+      - name: Build and Push Frontend Docker Image
         run: |
-          docker run -d --name backend -p 7050:7050 --env-file /www/wwwroot/planningpokerclub/backend/.env planningpokerclub-backend:latest
-          docker run -d --name frontend -p 7051:7051 --env-file /www/wwwroot/planningpokerclub/frontend/.env planningpokerclub-frontend:latest
+          cd /www/wwwroot/planningpokerclub
+          docker build -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-frontend:latest -f frontend/Dockerfile .
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-frontend:latest
 
       - name: Deploy to VPS
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_REGISTRY_URL: ${{ secrets.DOCKER_REGISTRY_URL }}
         run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
           ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST << 'EOF'
-            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            echo "$DOCKER_PASSWORD" | docker login $DOCKER_REGISTRY_URL -u "$DOCKER_USERNAME" --password-stdin
             cd /www/wwwroot/planningpokerclub
             docker-compose down
+            docker-compose pull
             docker-compose up -d
           EOF
 
-      - name: Clean up
+      - name: Clean up local Docker containers
         run: |
-          docker stop backend
-          docker rm backend
-          docker stop frontend
-          docker rm frontend
+          docker stop backend frontend || true
+          docker rm backend frontend || true
