@@ -32,13 +32,13 @@ jobs:
 
       - name: Build and Push Backend Docker Image
         run: |
-          cd /www/wwwroot/planningpokerclub
+          cd /backend
           docker build -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-backend:latest -f backend/Dockerfile .
           docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-backend:latest
 
       - name: Build and Push Frontend Docker Image
         run: |
-          cd /www/wwwroot/planningpokerclub
+          cd /frontend
           docker build -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-frontend:latest -f frontend/Dockerfile .
           docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-frontend:latest
 
