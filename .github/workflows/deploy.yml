@@ -67,12 +67,10 @@ jobs:
             echo "$DOCKER_PASSWORD" | docker login $DOCKER_REGISTRY_URL -u "$DOCKER_USERNAME" --password-stdin
             cd /www/wwwroot/planning-poker-club
             cd backend
-            docker-compose pull ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-backend:latest
-            docker-compose up -d
+            docker run -d --name planningpokerclub-backend -p 7050:7050 ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-backend:latest
             cd ..
             cd frontend 
-            docker-compose pull ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-frontend:latest
-            docker-compose up -d
+            docker run -d --name planningpokerclub-frontend -p 7051:3301 ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-frontend:latest
           EOF
 
       - name: Clean up local Docker containers
