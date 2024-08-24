@@ -30,16 +30,24 @@ jobs:
       - name: Log in to Docker Registry
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ secrets.DOCKER_REGISTRY_URL }} -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Build and Push Backend Docker Image
+      - name: Build and Tag Backend Docker Image
         run: |
           cd ./backend
-          docker build -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-backend:latest -f backend/Dockerfile .
+          docker build -t planningpokerclub-backend:latest -f backend/Dockerfile .
+          docker tag planningpokerclub-backend:latest ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-backend:latest
+
+      - name: Push Backend Docker Image
+        run: |
           docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-backend:latest
 
-      - name: Build and Push Frontend Docker Image
+      - name: Build and Tag Frontend Docker Image
         run: |
           cd ./frontend
-          docker build -t ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-frontend:latest -f frontend/Dockerfile .
+          docker build -t planningpokerclub-frontend:latest -f frontend/Dockerfile .
+          docker tag planningpokerclub-frontend:latest ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-frontend:latest
+
+      - name: Push Frontend Docker Image
+        run: |
           docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-frontend:latest
 
       - name: Deploy to VPS
@@ -48,6 +56,7 @@ jobs:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOCKER_REGISTRY_URL: ${{ secrets.DOCKER_REGISTRY_URL }}
         run: |
           mkdir -p ~/.ssh
@@ -66,5 +75,3 @@ jobs:
         run: |
           docker stop backend frontend || true
           docker rm backend frontend || true
-
-          
