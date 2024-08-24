@@ -33,7 +33,7 @@ jobs:
       - name: Build and Tag Backend Docker Image
         run: |
           cd ./backend
-          docker build -t planningpokerclub-backend:latest -f Dockerfile .
+          docker build -t planningpokerclub-backend:latest .
           docker tag planningpokerclub-backend:latest ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-backend:latest
 
       - name: Push Backend Docker Image
@@ -43,7 +43,7 @@ jobs:
       - name: Build and Tag Frontend Docker Image
         run: |
           cd ./frontend
-          docker build -t planningpokerclub-frontend:latest -f Dockerfile .
+          docker build -t planningpokerclub-frontend:latest .
           docker tag planningpokerclub-frontend:latest ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-frontend:latest
 
       - name: Push Frontend Docker Image
