@@ -32,21 +32,23 @@ jobs:
 
       - name: Build and Tag Backend Docker Image
         run: |
-          docker build -t planningpokerclub-backend:latest -f backend/Dockerfile .
-          docker tag planningpokerclub-backend:latest ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-backend:latest
+          cd ./backend
+          docker build -t planningpokerclub-backend:latest -f Dockerfile .
+          docker tag planningpokerclub-backend:latest ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-backend:latest
 
       - name: Push Backend Docker Image
         run: |
-          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-backend:latest
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-backend:latest
 
       - name: Build and Tag Frontend Docker Image
         run: |
-          docker build -t planningpokerclub-frontend:latest -f frontend/Dockerfile .
-          docker tag planningpokerclub-frontend:latest ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-frontend:latest
+          cd ./frontend
+          docker build -t planningpokerclub-frontend:latest -f Dockerfile .
+          docker tag planningpokerclub-frontend:latest ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-frontend:latest
 
       - name: Push Frontend Docker Image
         run: |
-          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/${{ secrets.DOCKER_USERNAME }}/planningpokerclub-frontend:latest
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-frontend:latest
 
       - name: Deploy to VPS
         env:
