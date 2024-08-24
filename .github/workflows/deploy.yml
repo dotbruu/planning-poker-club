@@ -66,8 +66,12 @@ jobs:
           ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST << 'EOF'
             echo "$DOCKER_PASSWORD" | docker login $DOCKER_REGISTRY_URL -u "$DOCKER_USERNAME" --password-stdin
             cd /www/wwwroot/planning-poker-club
-            docker-compose down
-            docker-compose pull
+            cd backend
+            docker-compose pull ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-backend:latest
+            docker-compose up -d
+            cd ..
+            cd frontend 
+            docker-compose pull ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-frontend:latest
             docker-compose up -d
           EOF
 
