@@ -64,7 +64,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
 
           ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST << 'EOF'
-            echo "$DOCKER_PASSWORD" | docker login $DOCKER_REGISTRY_URL -u "$DOCKER_USERNAME" --password-stdin
+            echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY_URL -u $DOCKER_USERNAME --password-stdin
             cd /www/wwwroot/planning-poker-club
             cd backend
             docker run -d --name planningpokerclub-backend -p 7050:7050 $DOCKER_REGISTRY_URL/planningpokerclub-backend:latest
