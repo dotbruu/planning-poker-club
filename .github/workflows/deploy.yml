@@ -66,10 +66,8 @@ jobs:
           ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST << 'EOF'
             echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY_URL -u $DOCKER_USERNAME --password-stdin
             cd /www/wwwroot/planning-poker-club
-            docker pull $DOCKER_REGISTRY_URL/planningpokerclub-backend:latest
-            docker pull $DOCKER_REGISTRY_URL/planningpokerclub-frontend:latest
-            docker run -d --name planningpokerclub-backend -p 7050:7050 $DOCKER_REGISTRY_URL/planningpokerclub-backend:latest
-            docker run -d --name planningpokerclub-frontend -p 7051:3301 $DOCKER_REGISTRY_URL/planningpokerclub-frontend:latest
+            docker-compose -f docker-compose-deploy.yml pull
+            docker-compose -f docker-compose-deploy.yml up -d
           EOF
 
       - name: Clean up local Docker containers
