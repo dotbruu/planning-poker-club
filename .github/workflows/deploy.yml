@@ -66,10 +66,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST << 'EOF'
             echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY_URL -u $DOCKER_USERNAME --password-stdin
             cd /www/wwwroot/planning-poker-club
-            docker stop planningpokerclub-backend || true
-            docker rm planningpokerclub-backend || true
-            docker stop planningpokerclub-frontend || true
-            docker rm planningpokerclub-frontend || true
             docker pull $DOCKER_REGISTRY_URL/planningpokerclub-backend:latest
             docker pull $DOCKER_REGISTRY_URL/planningpokerclub-frontend:latest
             docker run -d --name planningpokerclub-backend -p 7050:7050 $DOCKER_REGISTRY_URL/planningpokerclub-backend:latest
