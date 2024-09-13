@@ -50,25 +50,30 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-frontend:latest
 
-      - name: Deploy to VPS
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_USER: ${{ secrets.VPS_USER }}
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_REGISTRY_URL: ${{ secrets.DOCKER_REGISTRY_URL }}
-        run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-
-          ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST << 'EOF'
-            echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY_URL -u $DOCKER_USERNAME --password-stdin
-            cd /www/wwwroot/planning-poker-club
-            docker-compose -f docker-compose-deploy.yml pull
-            docker-compose -f docker-compose-deploy.yml up -d
-          EOF
+          - name: Deploy to VPS
+          env:
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            VPS_HOST: ${{ secrets.VPS_HOST }}
+            VPS_USER: ${{ secrets.VPS_USER }}
+            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+            DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+            DOCKER_REGISTRY_URL: ${{ secrets.DOCKER_REGISTRY_URL }}
+          run: |
+            mkdir -p ~/.ssh
+            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+        
+            ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_HOST << EOF
+              export DOCKER_USERNAME="${DOCKER_USERNAME}"
+              export DOCKER_PASSWORD="${DOCKER_PASSWORD}"
+              export DOCKER_REGISTRY_URL="${DOCKER_REGISTRY_URL}"
+        
+              echo \$DOCKER_PASSWORD | docker login \$DOCKER_REGISTRY_URL -u \$DOCKER_USERNAME --password-stdin
+              cd /www/wwwroot/planning-poker-club
+              docker-compose -f docker-compose-deploy.yml pull
+              docker-compose -f docker-compose-deploy.yml up -d
+            EOF
+        
 
       - name: Clean up local Docker containers
         run: |
