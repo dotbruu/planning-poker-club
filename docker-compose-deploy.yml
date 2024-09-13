@@ -7,7 +7,7 @@ services:
     ports:
       - "7050:7050"
     env_file:
-      - /backend/.env
+      - ./backend/.env
     restart: always
 
   frontend:
