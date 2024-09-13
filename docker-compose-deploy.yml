@@ -1,8 +1,8 @@
-version: '3.8'
+version: '3.3'
 
 services:
   backend:
-    image: ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-backend:latest
+    image: ${DOCKER_REGISTRY_URL}/planningpokerclub-backend:latest
     container_name: planningpokerclub-backend
     ports:
       - "7050:7050"
@@ -11,7 +11,7 @@ services:
     restart: always
 
   frontend:
-    image: ${{ secrets.DOCKER_REGISTRY_URL }}/planningpokerclub-frontend:latest
+    image: ${DOCKER_REGISTRY_URL}/planningpokerclub-frontend:latest
     container_name: planningpokerclub-frontend
     ports:
       - "7051:3301"
