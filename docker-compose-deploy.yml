@@ -6,8 +6,8 @@ services:
     container_name: planningpokerclub-backend
     ports:
       - "7050:7050"
-    environment:
-      - NODE_ENV=production
+    env_file:
+      - /backend/.env
     restart: always
 
   frontend:
