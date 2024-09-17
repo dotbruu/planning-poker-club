@@ -15,8 +15,8 @@ services:
     container_name: planningpokerclub-frontend
     ports:
       - "7051:3301"
-    environment:
-      - NODE_ENV=production
+    env_file:
+      - ./frontend/.env
     restart: always
 
 networks:
