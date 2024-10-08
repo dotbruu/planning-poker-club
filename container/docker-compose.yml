@@ -1,0 +1,38 @@
+version: "3"
+services:
+mongo1:
+hostname: mongo1
+container_name: localmongo1
+image: mongo:latest
+expose:
+- 27017
+ports:
+- 27017:27017
+restart: always
+volumes:
+- ./data1:/data/db
+entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+mongo2:
+hostname: mongo2
+container_name: localmongo2
+image: mongo:latest
+expose:
+- 27017
+ports:
+- 27016:27017
+restart: always
+volumes:
+- ./data2:/data/db
+entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
+mongo3:
+hostname: mongo3
+container_name: localmongo3
+image: mongo:latest
+expose:
+- 27017
+ports:
+- 27015:27017
+restart: always
+volumes:
+- ./data3:/data/db
+entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]

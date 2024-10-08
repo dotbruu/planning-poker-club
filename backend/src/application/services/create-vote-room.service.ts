@@ -1,5 +1,5 @@
 import { VoteModel } from 'src/domain/models/room.model';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { RoomRepository } from 'src/external/repositories/room.repository';
 import { Result } from 'src/shared/protocols/result';
 import {
@@ -12,7 +12,9 @@ import { UserNotAssociatedWithRoomException } from '../errors/user-not-associate
 
 @Injectable()
 export class CreateVoteRoomService implements ICreateRoomVoteService {
-  constructor(private roomRepository: RoomRepository) {}
+  constructor(
+    @Inject('ROOM_REPOSITORY') private readonly roomRepository: RoomRepository,
+  ) {}
   async execute({
     roomId,
     userId,

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Result } from 'src/shared/protocols/result';
 import { RoomRepository } from 'src/external/repositories/room.repository';
 import { RoomNotFoundException } from '../errors/room-not-found.exception';
@@ -10,7 +10,9 @@ import {
 
 @Injectable()
 export class ResetVotesRoomService implements IResetVotesRoomService {
-  constructor(private roomRepository: RoomRepository) {}
+  constructor(
+    @Inject('ROOM_REPOSITORY') private readonly roomRepository: RoomRepository,
+  ) {}
   async execute({
     roomId,
   }: IResetVotesRoomServiceRequest): Promise<

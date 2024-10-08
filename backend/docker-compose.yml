@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  ppbackend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - '7050:3300'
+    env_file:
+      - ./.env
+    networks:
+      - poker
+
+networks:
+  poker:
+    driver: bridge

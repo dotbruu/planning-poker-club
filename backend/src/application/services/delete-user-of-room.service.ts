@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Result } from 'src/shared/protocols/result';
 import {
   IDeleteUserOfRequest,
@@ -10,7 +10,9 @@ import { RoomModel } from 'src/domain/models/room.model';
 
 @Injectable()
 export class DeleteUserOfRoomService implements IDeleteUserOfRoomService {
-  constructor(private roomRepository: RoomRepository) {}
+  constructor(
+    @Inject('USER_REPOSITORY') private readonly roomRepository: RoomRepository,
+  ) {}
   async execute({
     userId,
     roomId,

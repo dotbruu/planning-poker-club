@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Result } from 'src/shared/protocols/result';
 import {
   ICreateUserRequest,
@@ -9,7 +9,9 @@ import { UserRepository } from 'src/external/repositories/user.repository';
 
 @Injectable()
 export class CreateUserService implements ICreateUserService {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    @Inject('USER_REPOSITORY') private readonly userRepository: UserRepository,
+  ) {}
   async execute(data: ICreateUserRequest): Promise<Result<UserModel>> {
     const user = await this.userRepository.create(data);
 

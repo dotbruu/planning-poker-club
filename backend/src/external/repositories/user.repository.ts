@@ -1,37 +1,40 @@
 import { Injectable } from '@nestjs/common';
 import { UserModel } from 'src/domain/models/user.model';
 import { IUserRepository } from 'src/application/protocols/repositories/user-repository.struct';
-import { PrismaService } from '../database/prisma.service';
+import { InjectModel } from '@nestjs/mongoose';
+import { UserEntity } from '../database/schemas/user.schema';
+import { Model } from 'mongoose';
+import { transformDocument } from 'src/shared/transform-document';
 
 @Injectable()
 export class UserRepository implements IUserRepository {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    @InjectModel(UserEntity.name) private userModel: Model<UserEntity>,
+  ) {}
+
   async create(data: Omit<UserModel, 'id'>): Promise<UserModel> {
-    return await this.prisma.users.create({ data });
+    return this.userModel.create(data);
   }
   async update(id: string, data: UserModel): Promise<UserModel | null> {
-    return await this.prisma.users.update({
-      data,
-      where: {
+    await this.userModel.updateOne(
+      {
         id,
       },
-    });
+      data,
+    );
+
+    return this.userModel.findById(id);
   }
   async delete(id: string): Promise<void> {
-    await this.prisma.users.delete({
-      where: {
-        id,
-      },
+    await this.userModel.deleteOne({
+      id,
     });
   }
   async findById(id: string): Promise<UserModel | null> {
-    return await this.prisma.users.findUnique({
-      where: {
-        id,
-      },
-    });
+    const document = await this.userModel.findById(id)?.lean();
+    return transformDocument(document);
   }
   async findAll(): Promise<UserModel[]> {
-    return await this.prisma.users.findMany();
+    return await this.userModel.find();
   }
 }

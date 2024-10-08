@@ -9,13 +9,13 @@ import { RoomRepository } from 'src/external/repositories/room.repository';
 import { RoomNotFoundException } from '../errors/room-not-found.exception';
 import { UserNotFoundException } from '../errors/user-not-found.exception';
 import { UserModel } from 'src/domain/models/user.model';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class GetRoomService implements IGetRoomService {
   constructor(
-    private roomRepository: RoomRepository,
-    private userRepository: UserRepository,
+    @Inject('ROOM_REPOSITORY') private readonly roomRepository: RoomRepository,
+    @Inject('USER_REPOSITORY') private readonly userRepository: UserRepository,
   ) {}
   async execute({
     roomId,

@@ -1,6 +1,6 @@
 /* eslint-disable prefer-const */
 import { RoomModel } from 'src/domain/models/room.model';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { RoomRepository } from 'src/external/repositories/room.repository';
 import { Result } from 'src/shared/protocols/result';
 import {
@@ -17,8 +17,8 @@ import { UserModel } from 'src/domain/models/user.model';
 @Injectable()
 export class AssociateUserToRoom implements IAssociateUserToRoomService {
   constructor(
-    private roomRepository: RoomRepository,
-    private userRepository: UserRepository,
+    @Inject('ROOM_REPOSITORY') private readonly roomRepository: RoomRepository,
+    @Inject('USER_REPOSITORY') private readonly userRepository: UserRepository,
   ) {}
   async execute({
     roomId,
