@@ -52,7 +52,7 @@ export class CreateVoteRoomService implements ICreateRoomVoteService {
     if (!roomUpdated) {
       return Result.fail(new RoomNotFoundException());
     }
-    roomUpdated.votes.map((vote) => {
+    roomUpdated.votes.forEach((vote) => {
       if (!roomUpdated.isRevealed || vote.userId !== userId) {
         vote.value = '✅';
       }

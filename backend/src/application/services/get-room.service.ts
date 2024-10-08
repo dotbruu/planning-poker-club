@@ -35,7 +35,7 @@ export class GetRoomService implements IGetRoomService {
       users.push(user);
     }
 
-    room.votes.map((vote) => {
+    room.votes.forEach((vote) => {
       if (!room.isRevealed) {
         vote.value = '✅';
       }
