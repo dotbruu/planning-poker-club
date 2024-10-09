@@ -21,15 +21,15 @@ export class RoomRepository implements IRoomRepository {
   ): Promise<RoomModel | null> {
     await this.roomModel.updateOne(
       {
-        id: roomId,
+        _id: roomId,
       },
       data,
     );
 
-    return this.roomModel.findById(roomId);
+    return this.roomModel.findById(roomId)?.lean();
   }
   async delete(id: string): Promise<void> {
-    await this.roomModel.deleteOne({ id });
+    await this.roomModel.deleteOne({ _id: id });
   }
   async findById(id: string): Promise<RoomModel | null> {
     const document = await this.roomModel.findById(id)?.lean();

@@ -18,16 +18,16 @@ export class UserRepository implements IUserRepository {
   async update(id: string, data: UserModel): Promise<UserModel | null> {
     await this.userModel.updateOne(
       {
-        id,
+        _id: id,
       },
       data,
     );
 
-    return this.userModel.findById(id);
+    return this.userModel.findById(id)?.lean();
   }
   async delete(id: string): Promise<void> {
     await this.userModel.deleteOne({
-      id,
+      _id: id,
     });
   }
   async findById(id: string): Promise<UserModel | null> {
@@ -35,6 +35,6 @@ export class UserRepository implements IUserRepository {
     return transformDocument(document);
   }
   async findAll(): Promise<UserModel[]> {
-    return await this.userModel.find();
+    return await this.userModel.find()?.lean();
   }
 }
