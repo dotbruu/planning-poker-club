@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "PORT=3301 next start",
+    "start": "npm run build && PORT=3301 next start",
     "fix": "eslint --fix src"
   },
   "dependencies": {
