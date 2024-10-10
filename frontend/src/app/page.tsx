@@ -4,11 +4,14 @@
 "use client";
 import { LogoIcon } from "@/components/icons/logo-icon";
 import { CreateRoomModal } from "@/components/organisms/modals/create-room-modal";
+import env from "@/config/env";
 import { HomePageController } from "@/controllers/pages";
 
 export default function Home() {
   const { handleToggleModalCreateRoom, isModalOpen, onCreateRoom } =
     HomePageController();
+
+  console.log("env", env);
 
   return (
     <div className="w-full h-[100vh] bg-primary">
