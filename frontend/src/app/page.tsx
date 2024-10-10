@@ -4,14 +4,11 @@
 "use client";
 import { LogoIcon } from "@/components/icons/logo-icon";
 import { CreateRoomModal } from "@/components/organisms/modals/create-room-modal";
-import env from "@/config/env";
 import { HomePageController } from "@/controllers/pages";
 
 export default function Home() {
   const { handleToggleModalCreateRoom, isModalOpen, onCreateRoom } =
     HomePageController();
-
-  console.log("env", env);
 
   return (
     <div className="w-full h-[100vh] bg-primary">
@@ -45,7 +42,7 @@ export default function Home() {
                   Create room
                 </button>
                 <h5 className="mt-4 font-bold text-center text-white">
-                  It's really free!
+                  It's really free! :D
                 </h5>
               </div>
             </div>
