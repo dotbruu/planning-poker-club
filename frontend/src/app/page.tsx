@@ -42,7 +42,7 @@ export default function Home() {
                   Create room
                 </button>
                 <h5 className="mt-4 font-bold text-center text-white">
-                  It's really free! :D
+                  It's really free! _
                 </h5>
               </div>
             </div>
