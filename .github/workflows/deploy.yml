@@ -71,7 +71,7 @@ jobs:
             echo \$DOCKER_PASSWORD | docker login \$DOCKER_REGISTRY_URL -u \$DOCKER_USERNAME --password-stdin
             cd /www/wwwroot/planning-poker-club
             docker-compose -f docker-compose-deploy.yml pull
-            docker-compose -f docker-compose-deploy.yml up -d --build
+            docker-compose -f docker-compose-deploy.yml up -d --force-recreate
           EOF
 
       - name: Clean up local Docker containers
