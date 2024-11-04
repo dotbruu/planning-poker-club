@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/atoms/button";
 import { Input } from "@/components/atoms/input";
 import { Modal } from "@/components/atoms/modal";

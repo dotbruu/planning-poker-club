@@ -44,7 +44,7 @@ export function RoomPage({ room, userData }: IRoomPageProps) {
       />
       <div className="flex flex-col justify-between w-full md:flex-row">
         <div className="w-full px-12">
-          <div className="w-full my-20">
+          <div className="w-full my-20 pt-8">
             <h1 className="text-2xl font-bold">{roomName}</h1>
           </div>
           <section
@@ -78,7 +78,7 @@ export function RoomPage({ room, userData }: IRoomPageProps) {
         </div>
         <div
           className="flex flex-col content-between justify-between w-full px-12
-        overflow-hidden md:w-[520px] md:h-[100vh] md:bg-primary"
+        overflow-hidden md:w-[520px] md:h-[100vh] md:bg-primary pt-8"
         >
           <div className="w-full">
             <div

@@ -15,7 +15,9 @@ export function Input({
 }: IInputProps) {
   return (
     <div className="mt-2 w-full">
-      {label ? <label className="text-sm text-gray-500">{label}</label> : null}
+      {label ? (
+        <label className="text-sm text-gray-500 font-bold">{label}</label>
+      ) : null}
       <input
         className={"w-full h-12 p-4 mt-2 rounded-sm" + className}
         {...props}

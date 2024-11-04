@@ -22,7 +22,7 @@ export function Select({
 }: SelectProps) {
   return (
     <div className="flex flex-col w-full">
-      <label className="text-sm text-gray-500">{label}</label>
+      <label className="text-sm text-gray-500 font-bold">{label}</label>
       <div className="w-full bg-white mt-2">
         <select
           {...props}

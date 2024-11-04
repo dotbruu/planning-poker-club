@@ -2,10 +2,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { ToastContainer, toast } from "react-toastify";
 
-import { LogoIcon } from "../icons/logo-icon";
 import "react-toastify/dist/ReactToastify.css";
+import { Logo } from "../assets/logo";
 
-export function Header() {
+export function Header({ isRoom = false }: { isRoom?: boolean }) {
   function copyUrlToClipboard() {
     const url = window.location.href;
     navigator.clipboard.writeText(url);
@@ -22,24 +22,27 @@ export function Header() {
   }
   return (
     <>
-      <header className="w-full h-[80px] mr-8 px-6 bg-white flex flex-row justify-between items-center">
-        <a href="/">
-          <div
-            className="w-full h-[200px] flex content-center
-      items-center"
-          >
-            <LogoIcon dark width="200px" />
-          </div>
-        </a>
-        <button
-          className="w-20 md:w-60 h-auto md:h-8 border-2 rounded-sm border-black
-      hover:border-primary hover:text-primary"
-          onClick={copyUrlToClipboard}
+      <header className="w-full fixed flex h-20 bg-white px-4">
+        <div
+          className={`w-full mx-auto px-4 flex justify-between items-center ${
+            !isRoom && "container"
+          }`}
         >
-          Invite a teammate
-        </button>
+          <a href="/">
+            <Logo />
+          </a>
+          {isRoom ? (
+            <button
+              className="w-20 md:w-60 h-auto md:h-8 border-2 rounded-sm border-black
+      hover:border-primary hover:text-primary font-bold"
+              onClick={copyUrlToClipboard}
+            >
+              Invite a teammate
+            </button>
+          ) : null}
+        </div>
+        <ToastContainer />
       </header>
-      <ToastContainer />
     </>
   );
 }

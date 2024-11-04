@@ -7,7 +7,7 @@ export default function RootLayout({
 }) {
   return (
     <div className="w-full">
-      <Header />
+      <Header isRoom />
       {children}
     </div>
   );
