@@ -58,11 +58,14 @@ export const Card = ({
         </>
       ) : (
         <div
-          className="bg-primary-medium w-full h-full rounded-lg
-        flex justify-center items-center"
-        >
-          <span className="text-white text-base">{card}</span>
-        </div>
+          className={clsx(
+            "w-full h-full rounded-lg flex justify-center items-center",
+            {
+              "bg-secondary": isCheckedCard,
+              "bg-primary-medium": !isCheckedCard,
+            }
+          )}
+        ></div>
       )}
     </button>
   );
