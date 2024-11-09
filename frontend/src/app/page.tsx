@@ -44,7 +44,7 @@ export default function Home() {
               Start new game
             </button>
             <h5 className="mt-4 font-bold text-center text-white">
-              It's really free! 😄
+              It&apos;s really free! 😄
             </h5>
           </div>
         </div>
