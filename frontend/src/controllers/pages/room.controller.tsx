@@ -1,47 +1,57 @@
+"use client";
 import { socket } from "@/config/socket-config";
 import { CreateUserFormData } from "@/interfaces/components/organisms/create-user-modal.struct";
-import { IRoomControllerProps } from "@/interfaces/controllers/room-controller.struct";
 import { IUser } from "@/interfaces/models/user.struct";
 import { IVote } from "@/interfaces/models/vote.struct";
 import { Service } from "@/services";
+import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-export function useRoomController({
-  users,
-  votes,
-  userData,
-  roomId,
-  averageRoom,
-}: IRoomControllerProps) {
-  const [allUsers, setAllUsers] = useState<IUser[]>(users);
-  const [allVotes, setAllVotes] = useState<IVote[]>(votes);
-  const [user, setUser] = useState<IUser | null>(() => {
-    return userData || null;
+interface IRoomDetailProps {
+  name: string;
+  users: IUser[];
+  votes: IVote[];
+  deckVotes: string[];
+  average?: number;
+}
+
+export function useRoomController(roomId: string) {
+  const [user, setUser] = useState<IUser | null>(null);
+  const [roomDetail, setRoomDetail] = useState<IRoomDetailProps>({
+    deckVotes: [],
+    name: "",
+    users: [],
+    votes: [],
   });
+  const [loadingInfoRoom, setLoadingInfoRoom] = useState(true);
+  const [shouldCreateUser, setShouldCreateUser] = useState(false);
+
+  const { users: allUsers, votes: allVotes, average } = roomDetail;
+
   const [vote, setVote] = useState<string>(() => {
     const userVote = allVotes.find((vote) => vote.userId === user?.id);
     return userVote ? userVote.value : "";
   });
-  const [average, setAverage] = useState<number | null>(averageRoom || null);
 
-  function handleConfirm(userId: string) {
-    Service.Room.associateUserInRoom({
+  async function handleConfirm(userId: string) {
+    await Service.Room.associateUserInRoom({
       userId,
       roomId: String(roomId),
     });
   }
 
-  function onCreateUser({ userName, avatar }: CreateUserFormData) {
-    Service.User.createUser({
+  async function onCreateUser({ userName, avatar }: CreateUserFormData) {
+    const response = await Service.User.createUser({
       name: userName,
       avatar,
-    }).then((response) => {
-      handleConfirm(response.id);
-      const cookie = `@scrum-poker:user=${JSON.stringify(response)}`;
-      document.cookie = cookie;
-      setUser(response);
     });
+
+    await handleConfirm(response.id);
+    const cookie = `@scrum-poker:user=${JSON.stringify(response)}`;
+    document.cookie = cookie;
+    setUser(response);
+    setShouldCreateUser(false);
   }
 
   function onVote(vote: string) {
@@ -54,30 +64,69 @@ export function useRoomController({
     });
   }
 
-  useEffect(() => {
-    const userAlreadyAssociated = allUsers.some(
-      (userInList) => userInList.id === user?.id
-    );
+  async function getUserParsed() {
+    const userCookie = Cookies.get("@scrum-poker:user");
+    return userCookie ? JSON.parse(userCookie) : null;
+  }
 
-    if (user && !userAlreadyAssociated) {
-      handleConfirm(user.id);
+  async function getRoomInfo() {
+    const room = await Service.Room.getRoom(String(roomId));
+    setRoomDetail(room);
+    setLoadingInfoRoom(false);
+  }
+
+  async function handleLoadUser() {
+    const parsedUser = await getUserParsed();
+    setUser(parsedUser);
+
+    if (!parsedUser) {
+      setShouldCreateUser(true);
     }
 
+    if (loadingInfoRoom) return;
+
+    const userAlreadyAssociated = roomDetail.users.some(
+      (userInList: IUser) => userInList.id === user?.id
+    );
+
+    if (parsedUser && !userAlreadyAssociated) {
+      await handleConfirm(parsedUser.id);
+    }
+  }
+
+  useEffect(() => {
+    getRoomInfo();
+    handleLoadUser();
+  }, [loadingInfoRoom]);
+
+  useEffect(() => {
     socket.on(`room/${roomId}`, (data) => {
       const { type, ...payload } = JSON.parse(data);
       if (type === "associate_user_in_room") {
-        setAllUsers(payload.users);
+        setRoomDetail((prevState) => ({
+          ...prevState,
+          users: payload.users,
+        }));
       }
       if (type === "vote_created") {
-        setAllVotes(payload.votes);
+        setRoomDetail((prevState) => ({
+          ...prevState,
+          votes: payload.votes,
+        }));
       }
       if (type === "average_calculated") {
-        setAllVotes(payload.votes);
-        setAverage(payload.average);
+        setRoomDetail((prevState) => ({
+          ...prevState,
+          votes: payload.votes,
+          average: payload.average,
+        }));
       }
       if (type === "reset_votes") {
-        setAllVotes([]);
-        setAverage(null);
+        setRoomDetail((prevState) => ({
+          ...prevState!,
+          votes: [],
+          average: undefined,
+        }));
         setVote("");
         toast("Clean vote!", {
           position: "bottom-right",
@@ -97,19 +146,26 @@ export function useRoomController({
     return voteOfUser?.value;
   }
 
+  function userSelectedCard(vote: string) {
+    return vote;
+  }
+
   function getAverage() {
     Service.Vote.getAverage(String(roomId));
   }
 
   function resetVotes() {
     Service.Vote.reset(String(roomId));
-    setAllVotes([]);
-    setAverage(null);
+    setRoomDetail((prevState) => ({
+      ...prevState,
+      votes: [],
+      average: undefined,
+    }));
     setVote("");
   }
 
   return {
-    allUsers,
+    allUsers: allUsers.filter((teammate) => teammate.id !== user?.id),
     user,
     vote,
     average,
@@ -118,5 +174,9 @@ export function useRoomController({
     checkVote,
     getAverage,
     resetVotes,
+    userSelectedCard,
+    deckVotes: roomDetail?.deckVotes,
+    roomName: roomDetail?.name,
+    shouldCreateUser,
   };
 }

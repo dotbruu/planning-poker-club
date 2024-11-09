@@ -1,6 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 import { CardsIllustration } from "@/components/assets/cards-illustration";
 import { InterrogationCardIllustration } from "@/components/assets/interrogation-card-illustration";
@@ -13,7 +10,10 @@ export default function Home() {
     HomePageController();
 
   return (
-    <div className="w-full h-[100vh] bg-primary">
+    <div
+      className="w-full h-[100vh] bg-primary bg-[url('/bg-geometric.svg')]
+      bg-no-repeat bg-center bg-cover flex flex-col items-center justify-between"
+    >
       <CreateRoomModal
         isOpen={isModalOpen}
         onClose={() => handleToggleModalCreateRoom(false)}
@@ -21,10 +21,10 @@ export default function Home() {
       />
       <Header />
       <div
-        className="w-full container h-[100vh] overflow-hidden flex-col
-      content-center justify-center gap-12 p-2 mx-auto"
+        className="w-full container
+      content-center gap-12 p-2 mx-auto"
       >
-        <div className="flex max-w-[600px] flex-col content-center justify-center mx-auto p-4 md:p-auto">
+        <div className="flex max-w-[600px] flex-col mt-40 content-center justify-center mx-auto p-4 md:p-auto">
           <div className="w-full">
             <h1 className="font-modak absolute text-5xl md:text-6xl text-white">
               Scrum Poker for <br />
@@ -49,9 +49,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="w-full fixed bottom-0 flex justify-center mb-[-3rem] md:mb-0">
+      <div className="w-full flex justify-center mb-0">
         <CardsIllustration />
       </div>
+      <div></div>
     </div>
   );
 }

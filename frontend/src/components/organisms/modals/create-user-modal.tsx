@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+"use client";
 import { Button } from "@/components/atoms/button";
 import { Input } from "@/components/atoms/input";
 import { Modal } from "@/components/atoms/modal";
@@ -11,7 +12,7 @@ import {
 import { generateEmoji } from "@/utils/generate-emoji";
 import { yupResolver } from "@hookform/resolvers/yup";
 import EmojiPicker, { EmojiStyle } from "emoji-picker-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
 
@@ -19,8 +20,7 @@ export function CreateUserModal({
   onConfirm,
   ...props
 }: ICreateUserModalProps) {
-  const generatedEmoji = generateEmoji();
-  const [avatar, setAvatar] = useState(generatedEmoji);
+  const [avatar, setAvatar] = useState("");
   const [emojiPicker, setEmojiPicker] = useState(false);
   const {
     register,
@@ -30,7 +30,7 @@ export function CreateUserModal({
   } = useForm<CreateUserFormData>({
     defaultValues: {
       userName: "",
-      avatar: generatedEmoji,
+      avatar: "",
     },
     resolver: yupResolver(
       Yup.object().shape({
@@ -38,6 +38,12 @@ export function CreateUserModal({
       })
     ),
   });
+
+  useEffect(() => {
+    const emoji = generateEmoji();
+    setAvatar(emoji);
+    setValue("avatar", emoji);
+  }, []);
 
   function handleAvatarChange(emoji: string) {
     setAvatar(emoji);
