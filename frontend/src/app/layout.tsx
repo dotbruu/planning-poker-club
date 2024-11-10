@@ -3,9 +3,9 @@ import { Modak } from "next/font/google";
 import localFont from "next/font/local";
 import Head from "next/head";
 export const metadata = {
-  title:
-    "Planning Poker Club - Free and simple tool for planning poker sessions",
-  description: "Free and simple tool for planning poker sessions",
+  title: "Planning Poker Club - Free and Simple Tool for Agile Planning",
+  description:
+    "Simplify your agile planning sessions with Planning Poker Club. Fast, free, and easy-to-use, perfect for Scrum teams.",
 };
 
 const clash = localFont({
@@ -29,9 +29,58 @@ export default function RootLayout({
   return (
     <html className={`${clash.className} ${modakFont.variable}`} lang="en">
       <Head>
+        {/* General SEO Metadata */}
+        <title>{metadata.title}</title>
+        <meta content={metadata.description} name="description" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <meta
+          content="Planning Poker, Scrum, agile planning, Scrum tools, sprint planning, online Planning Poker, free Planning Poker tool"
+          name="keywords"
+        />
         <link href="/favicon.ico" rel="icon" />
-      </Head>
 
+        {/* Open Graph Metadata */}
+        <meta content={metadata.title} property="og:title" />
+        <meta content={metadata.description} property="og:description" />
+        <meta content="https://planningpokerclub.com" property="og:url" />
+        <meta content="website" property="og:type" />
+        <meta
+          content="https://planningpokerclub.com/assets/images/og-image.png"
+          property="og:image"
+        />
+
+        {/* Twitter Metadata */}
+        <meta content="summary_large_image" name="twitter:card" />
+        <meta content={metadata.title} name="twitter:title" />
+        <meta content={metadata.description} name="twitter:description" />
+        <meta
+          content="https://planningpokerclub.com/assets/images/og-image.png"
+          name="twitter:image"
+        />
+        <meta content="@planningpokerclub" name="twitter:site" />
+
+        {/* JSON-LD for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              name: "Planning Poker Club",
+              url: "https://planningpokerclub.com",
+              description:
+                "Simplify your agile planning sessions with Planning Poker Club. Fast, free, and easy-to-use, perfect for Scrum teams.",
+              applicationCategory: "ProductivityApplication",
+              operatingSystem: "All",
+              offers: {
+                "@type": "Offer",
+                price: "0.00",
+                priceCurrency: "USD",
+              },
+            }),
+          }}
+        />
+      </Head>
       <body>{children}</body>
     </html>
   );
