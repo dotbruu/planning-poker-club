@@ -6,7 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { Logo } from "../assets/logo";
 
 export function Header() {
-  const isRoomRoute = window.location.pathname.includes("/room");
+  const isRoomRoute =
+    typeof window !== "undefined" && window.location.pathname.includes("/room");
 
   function copyUrlToClipboard() {
     const url = window.location.href;
