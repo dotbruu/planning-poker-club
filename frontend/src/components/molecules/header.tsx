@@ -5,7 +5,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Logo } from "../assets/logo";
 
-export function Header({ isRoom = false }: { isRoom?: boolean }) {
+export function Header() {
+  const isRoomRoute = window.location.pathname.includes("/room");
+
   function copyUrlToClipboard() {
     const url = window.location.href;
     navigator.clipboard.writeText(url);
@@ -24,13 +26,13 @@ export function Header({ isRoom = false }: { isRoom?: boolean }) {
     <header className="w-full absolute top-0 flex h-20 z-50 bg-[#E1EAF9] px-4">
       <div
         className={`w-full mx-auto px-4 flex justify-between items-center ${
-          !isRoom && "container"
+          !isRoomRoute && "container"
         }`}
       >
         <a href="/">
           <Logo />
         </a>
-        {isRoom ? (
+        {isRoomRoute ? (
           <button
             className="w-20 md:w-60 h-auto md:h-8 border-2 text-white
             rounded-md border-none font-bold bg-primary-light hover:bg-primary"

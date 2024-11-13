@@ -1,7 +1,6 @@
 "use client";
 import { CardsIllustration } from "@/components/assets/cards-illustration";
 import { InterrogationCardIllustration } from "@/components/assets/interrogation-card-illustration";
-import { Header } from "@/components/molecules/header";
 import { CreateRoomModal } from "@/components/organisms/modals/create-room-modal";
 import { HomePageController } from "@/controllers/pages";
 
@@ -19,7 +18,6 @@ export default function Home() {
         onClose={() => handleToggleModalCreateRoom(false)}
         onConfirm={onCreateRoom}
       />
-      <Header />
       <div
         className="w-full container
       content-center gap-12 p-2 mx-auto"

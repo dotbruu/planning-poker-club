@@ -1,7 +1,9 @@
+import { Header } from "@/components/molecules/header";
 import "./globals.css";
 import { Modak } from "next/font/google";
 import localFont from "next/font/local";
 import Head from "next/head";
+import Script from "next/script";
 export const metadata = {
   title: "Planning Poker Club - Free and Simple Tool for Agile Planning",
   description:
@@ -81,7 +83,26 @@ export default function RootLayout({
           }}
         />
       </Head>
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-6EQNZZXM35"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-6EQNZZXM35');
+            `,
+          }}
+        />
+      </body>
     </html>
   );
 }
