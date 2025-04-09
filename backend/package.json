@@ -23,7 +23,7 @@
     "@nestjs/common": "^9.4.2",
     "@nestjs/config": "^3.2.3",
     "@nestjs/core": "^9.4.2",
-    "@nestjs/mongoose": "^10.0.10",
+    "@nestjs/mongoose": "^10.1.0",
     "@nestjs/platform-express": "^9.4.2",
     "@nestjs/platform-socket.io": "^9.4.0",
     "@nestjs/websockets": "^9.4.2",
