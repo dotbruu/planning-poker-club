@@ -23,4 +23,9 @@ export class RoomService {
     const response = await api.get(`/room/${roomId}`);
     return response.data;
   }
+
+  static async updateDeckVotes(roomId: string, deckVotes: string[]) {
+    const response = await api.put(`/room/deck-votes/${roomId}`, { deckVotes });
+    return response.data;
+  }
 }

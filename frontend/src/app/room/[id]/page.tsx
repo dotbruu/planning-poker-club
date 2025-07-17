@@ -1,10 +1,12 @@
 "use client";
 
+import { Select } from "@/components/atoms/select";
 import { DeckCard } from "@/components/molecules/deck-card";
 import { TeammateCard } from "@/components/molecules/teammate-card";
 import { UserCard } from "@/components/molecules/user-card";
 import { CreateUserModal } from "@/components/organisms/modals/create-user-modal";
 import { UnAvailableMobileModal } from "@/components/organisms/modals/unavailable-mobile-modal";
+import { voteDecks } from "@/constants/vote-decks";
 import { useRoomController } from "@/controllers/pages/room.controller";
 import clsx from "clsx";
 
@@ -23,6 +25,7 @@ export default function Room({ params }: { params: Readonly<{ id: string }> }) {
     roomName,
     shouldCreateUser,
     user,
+    updateDeckVotes,
   } = useRoomController(params.id);
   const playerQuantity = 1 + (allUsers.length ?? 0);
   const hasAverage = !isNaN(Number(average)) && Number(average) !== 0;
@@ -48,6 +51,16 @@ export default function Room({ params }: { params: Readonly<{ id: string }> }) {
             <h3>
               room: <strong>{roomName}</strong>
             </h3>
+          </div>
+          <div className="flex flex-row justify-center items-center gap-2">
+            <h3 className="whitespace-nowrap">change deck:</h3>
+            <Select
+              className="flex ml-2 h-10 border-white bg-white text-primary"
+              id="select-deck"
+              options={voteDecks}
+              placeholder="Select a deck"
+              onChange={() => updateDeckVotes}
+            />
           </div>
           <div className="flex flex-row justify-center">
             <h3>
@@ -103,6 +116,7 @@ export default function Room({ params }: { params: Readonly<{ id: string }> }) {
                   </button>
                 </div>
               </div>
+
               <DeckCard
                 deckCards={deckVotes}
                 selectedCard={userSelectedCard(vote)}

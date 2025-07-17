@@ -31,7 +31,7 @@ export const RoomSchema = SchemaFactory.createForClass(RoomEntity);
 RoomSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
-  transform: (_, ret) => {
+  transform: (_, ret: any) => {
     ret.id = ret._id;
     delete ret._id;
   },
@@ -40,7 +40,7 @@ RoomSchema.set('toJSON', {
 RoomSchema.set('toObject', {
   virtuals: true,
   versionKey: false,
-  transform: (_, ret) => {
+  transform: (_, ret: any) => {
     ret.id = ret._id;
     delete ret._id;
   },

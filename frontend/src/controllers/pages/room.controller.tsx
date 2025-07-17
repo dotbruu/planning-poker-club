@@ -34,6 +34,20 @@ export function useRoomController(roomId: string) {
     return userVote ? userVote.value : "";
   });
 
+  async function updateDeckVotes(deckVotes: string) {
+    await Service.Room.updateDeckVotes(String(roomId), deckVotes.split(","));
+    setRoomDetail((prevState) => ({
+      ...prevState,
+      deckVotes: deckVotes.split(","),
+    }));
+
+    resetVotes();
+
+    return {
+      updateDeckVotes,
+    };
+  }
+
   async function handleConfirm(userId: string) {
     await Service.Room.associateUserInRoom({
       userId,
@@ -178,5 +192,6 @@ export function useRoomController(roomId: string) {
     deckVotes: roomDetail?.deckVotes,
     roomName: roomDetail?.name,
     shouldCreateUser,
+    updateDeckVotes,
   };
 }

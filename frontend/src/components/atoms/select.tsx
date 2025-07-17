@@ -7,7 +7,7 @@ type Option = {
 };
 
 type SelectProps = {
-  label: string;
+  label?: string;
   options: Option[];
   error?: string;
   register?: UseFormRegisterReturn;
@@ -18,17 +18,25 @@ export function Select({
   options,
   error,
   register,
+  className,
   ...props
 }: SelectProps) {
   return (
     <div className="flex flex-col w-full">
-      <label className="text-sm text-gray-500 font-bold">{label}</label>
-      <div className="w-full bg-white mt-2">
+      {label ? (
+        <label className="text-sm text-gray-500 font-bold">{label}</label>
+      ) : null}
+      <div className="w-full bg-white border-r-8">
         <select
           {...props}
-          className="w-full p-4 bg-white h-12 rounded-sm
-          border-r-8 border-white"
+          className={
+            className
+              ? className
+              : `w-full p-4 bg-white h-12 rounded-sm
+          border-r-8 border-white`
+          }
           {...register}
+          aria-label="Select an option"
         >
           <option value="">Select an option</option>
           {options.map((option) => {

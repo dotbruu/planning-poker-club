@@ -19,7 +19,7 @@ export const UserSchema = SchemaFactory.createForClass(UserEntity);
 UserSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
-  transform: (_, ret) => {
+  transform: (_, ret: any) => {
     ret.id = ret._id;
     delete ret._id;
   },
@@ -28,7 +28,7 @@ UserSchema.set('toJSON', {
 UserSchema.set('toObject', {
   virtuals: true,
   versionKey: false,
-  transform: (_, ret) => {
+  transform: (_, ret: any) => {
     ret.id = ret._id;
     delete ret._id;
   },
