@@ -8,4 +8,5 @@ export interface IRoom {
   deckVotes: string[];
   votes: IVote[];
   average: number;
+  createdBy: string;
 }

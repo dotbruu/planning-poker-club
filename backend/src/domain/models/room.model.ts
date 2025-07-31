@@ -11,4 +11,5 @@ export interface RoomModel {
   average?: number | null;
   votes: VoteModel[];
   isRevealed: boolean;
+  createdBy: string;
 }

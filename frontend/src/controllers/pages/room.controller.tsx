@@ -14,6 +14,7 @@ interface IRoomDetailProps {
   votes: IVote[];
   deckVotes: string[];
   average?: number;
+  createdBy?: string;
 }
 
 export function useRoomController(roomId: string) {
@@ -163,6 +164,7 @@ export function useRoomController(roomId: string) {
     }));
     setVote("");
   }
+  const isRoomCreator = user?.id === roomDetail.createdBy;
 
   return {
     allUsers: allUsers.filter((teammate) => teammate.id !== user?.id),
@@ -178,5 +180,6 @@ export function useRoomController(roomId: string) {
     deckVotes: roomDetail?.deckVotes,
     roomName: roomDetail?.name,
     shouldCreateUser,
+    isRoomCreator,
   };
 }
