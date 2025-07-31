@@ -20,7 +20,7 @@ UserSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: (_, ret) => {
-    ret.id = ret._id;
+    ret.id = ret._id as unknown as string;
     delete ret._id;
   },
 });
@@ -29,7 +29,7 @@ UserSchema.set('toObject', {
   virtuals: true,
   versionKey: false,
   transform: (_, ret) => {
-    ret.id = ret._id;
+    ret.id = ret._id as unknown as string;
     delete ret._id;
   },
 });

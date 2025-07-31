@@ -24,6 +24,9 @@ export class RoomEntity extends Document implements RoomModel {
 
   @Prop({ type: Boolean, default: false })
   isRevealed: boolean;
+
+  @Prop({ type: String, required: true })
+  createdBy: string;
 }
 
 export const RoomSchema = SchemaFactory.createForClass(RoomEntity);
@@ -32,7 +35,7 @@ RoomSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
   transform: (_, ret) => {
-    ret.id = ret._id;
+    ret.id = ret._id as unknown as string;
     delete ret._id;
   },
 });
@@ -41,7 +44,7 @@ RoomSchema.set('toObject', {
   virtuals: true,
   versionKey: false,
   transform: (_, ret) => {
-    ret.id = ret._id;
+    ret.id = ret._id as unknown as string;
     delete ret._id;
   },
 });

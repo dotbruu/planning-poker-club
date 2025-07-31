@@ -23,6 +23,7 @@ export default function Room({ params }: { params: Readonly<{ id: string }> }) {
     roomName,
     shouldCreateUser,
     user,
+    isRoomCreator,
   } = useRoomController(params.id);
   const playerQuantity = 1 + (allUsers.length ?? 0);
   const hasAverage = !isNaN(Number(average)) && Number(average) !== 0;
@@ -82,26 +83,28 @@ export default function Room({ params }: { params: Readonly<{ id: string }> }) {
                     </h3>
                   </div>
                 </div>
-                <div
-                  className={clsx("flex w-full gap-4", {
-                    "flex-col": hasAverage,
-                    "max-w-[50%]": !hasAverage,
-                  })}
-                >
-                  <button
-                    className="w-full font-bold bg-white rounded-lg h-14 text-primary transition-colors hover:bg-gray-light"
-                    onClick={resetVotes}
+                {isRoomCreator ? (
+                  <div
+                    className={clsx("flex w-full gap-4", {
+                      "flex-col": hasAverage,
+                      "max-w-[50%]": !hasAverage,
+                    })}
                   >
-                    Clear Votes
-                  </button>
-                  <button
-                    className="w-full font-bold text-white rounded-lg h-14 bg-secondary
-              transition-colors hover:bg-secondary-dark"
-                    onClick={getAverage}
-                  >
-                    Show Votes
-                  </button>
-                </div>
+                    <button
+                      className="w-full font-bold bg-white rounded-lg h-14 text-primary transition-colors hover:bg-gray-light"
+                      onClick={resetVotes}
+                    >
+                      Clear Votes
+                    </button>
+                    <button
+                      className="w-full font-bold text-white rounded-lg h-14 bg-secondary
+      transition-colors hover:bg-secondary-dark"
+                      onClick={getAverage}
+                    >
+                      Show Votes
+                    </button>
+                  </div>
+                ) : null}
               </div>
               <DeckCard
                 deckCards={deckVotes}
