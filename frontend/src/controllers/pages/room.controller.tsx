@@ -14,7 +14,7 @@ interface IRoomDetailProps {
   votes: IVote[];
   deckVotes: string[];
   average?: number;
-  createdBy?: string;
+  createdBy: string;
 }
 
 export function useRoomController(roomId: string) {
@@ -24,6 +24,7 @@ export function useRoomController(roomId: string) {
     name: "",
     users: [],
     votes: [],
+    createdBy: "",
   });
   const [loadingInfoRoom, setLoadingInfoRoom] = useState(true);
   const [shouldCreateUser, setShouldCreateUser] = useState(false);

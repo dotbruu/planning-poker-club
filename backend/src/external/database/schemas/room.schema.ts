@@ -25,7 +25,7 @@ export class RoomEntity extends Document implements RoomModel {
   @Prop({ type: Boolean, default: false })
   isRevealed: boolean;
 
-  @Prop({ required: true })
+  @Prop({ type: String, required: true })
   createdBy: string;
 }
 
