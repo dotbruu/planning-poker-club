@@ -24,7 +24,7 @@ export function useRoomController(roomId: string) {
     name: "",
     users: [],
     votes: [],
-    createdBy: "",
+    createdBy: null,
   });
   const [loadingInfoRoom, setLoadingInfoRoom] = useState(true);
   const [shouldCreateUser, setShouldCreateUser] = useState(false);
